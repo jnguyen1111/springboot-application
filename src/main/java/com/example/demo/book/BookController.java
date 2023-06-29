@@ -1,11 +1,9 @@
 package com.example.demo.book;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import java.util.List;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 @RestController //marks class as a restful controller handles incoming request
 @RequestMapping(path = "api/v1/book") //specifies a base url path added on to the methods below
@@ -20,4 +18,9 @@ public class BookController {
     //this function serves as a restful endpoint given annotation with the rest controller serves as the GET request
     @GetMapping
     public List<Book> getBooks(){return BookService.getBooks();}
+
+    //this function serves as a restful endpoint given annotation with the rest controller serves as the POST request
+    @PostMapping
+    //request body is that we take a http request and from its request body we map it to the parameter given and then call the book service to add new book
+    public void registerNewBook(@RequestBody Book book){ BookService.addNewBook(book);}
 }
