@@ -28,4 +28,10 @@ public class BookService {
         System.out.println(book);
 
     }
+
+    public void deleteBook(Integer bookOrder){
+        boolean exists = bookRepository.existsById(bookOrder);
+        if (!exists){throw new IllegalStateException("Book with bookOrder " + bookOrder + " does not exists");}
+        bookRepository.deleteById(bookOrder);
+    }
 }
