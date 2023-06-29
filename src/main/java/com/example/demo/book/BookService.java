@@ -19,6 +19,7 @@ public class BookService {
         this.bookRepository = bookRepository;
     }
 
+    //Calls hibernate to perform sql statement
     public List<Book> getBooks(){
         return bookRepository.findAll();
     }
