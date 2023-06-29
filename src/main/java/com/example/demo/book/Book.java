@@ -7,8 +7,7 @@ import java.time.LocalDate;
 @Entity //mark class as entity represents a table in database
 @Table // specify detail of database table associated with entity allows definition of table name and schema and attributes related with table
 public class Book {
-    //marks primary key of entity class
-    @Id
+
     //generates primary key value name= name of generator , sequenceName = name of database sequence,
     // allocation size determines number of values to be allocated from sequence
     //allows primary key value to be automatically fetch next value from sequence
@@ -24,6 +23,8 @@ public class Book {
             strategy = GenerationType.SEQUENCE,
             generator = "book_sequence"
     )
+    //marks primary key of entity class
+    @Id
     private Integer bookOrder;
     private Double price;
     private String title;
@@ -31,12 +32,11 @@ public class Book {
     private LocalDate releaseDate;
 
     public Book() {}
-    public Book(Integer bookOrder,
+    public Book(
                 Double price,
                 String title,
                 String author,
                 LocalDate releaseDate) {
-        this.bookOrder = bookOrder;
         this.price = price;
         this.title = title;
         this.author = author;
