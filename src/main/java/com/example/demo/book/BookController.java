@@ -23,4 +23,9 @@ public class BookController {
     @PostMapping
     //request body is that we take a http request and from its request body we map it to the parameter given and then call the book service to add new book
     public void registerNewBook(@RequestBody Book book){ BookService.addNewBook(book);}
+
+    //this function serves as a restful endpoint given annotation with the rest controller serves as the Delete request
+    @DeleteMapping(path = "{bookOrder}")
+    public void deleteBook(@PathVariable("bookOrder") Integer bookOrder){BookService.deleteBook(bookOrder);}
+
 }
