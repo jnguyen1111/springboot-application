@@ -1,9 +1,12 @@
 package com.example.demo.book;
 
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 //marks class as a service component encapsulate buisness logic and perform task
@@ -33,5 +36,14 @@ public class BookService {
         boolean exists = bookRepository.existsById(bookOrder);
         if (!exists){throw new IllegalStateException("Book with bookOrder " + bookOrder + " does not exists");}
         bookRepository.deleteById(bookOrder);
+    }
+
+    @Transactional
+    public void updateBook(Integer bookOrder, String title, String author){
+        Book book = bookRepository.findById(bookOrder)
+                .orElseThrow(()-> new IllegalStateException("Book with order " + bookOrder + " does not extist"));
+        if(title != null && title.length() > 0 && !Objects.equals(book.getTitle(), title)){book.setTitle(title);}
+        if(author != null && author.length() > 0 && !Objects.equals(book.getAuthor(), author)){book.setAuthor(author);}
+
     }
 }

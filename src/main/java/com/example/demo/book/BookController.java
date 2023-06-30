@@ -3,6 +3,7 @@ package com.example.demo.book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController //marks class as a restful controller handles incoming request
@@ -28,4 +29,12 @@ public class BookController {
     @DeleteMapping(path = "{bookOrder}")
     public void deleteBook(@PathVariable("bookOrder") Integer bookOrder){BookService.deleteBook(bookOrder);}
 
+    //this function serves as a restful endpoint given annotation with the rest controller serves as the PUT request
+    @PutMapping(path="{bookOrder}")
+    public void updateBook(@PathVariable("bookOrder") Integer bookOrder,
+                           @RequestParam(required = false)String title,
+                           @RequestParam(required = false)String author
+                           ){
+        BookService.updateBook(bookOrder,title,author);
+    }
 }
