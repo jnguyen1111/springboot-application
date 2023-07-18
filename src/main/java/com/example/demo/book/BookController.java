@@ -3,7 +3,6 @@ package com.example.demo.book;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController //marks class as a restful controller handles incoming request
@@ -18,7 +17,7 @@ public class BookController {
 
     //this function serves as a restful endpoint given annotation with the rest controller serves as the GET request
     @GetMapping
-    public List<Book> getBooks(){return BookService.getBooks();}
+    public List<Book> getBooks(){return BookService.getAllBooks();}
 
     //this function serves as a restful endpoint given annotation with the rest controller serves as the POST request
     @PostMapping
