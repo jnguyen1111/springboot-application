@@ -8,8 +8,10 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -51,7 +53,6 @@ class BookServiceTest {
 
         assertThat(capturedBook).isEqualTo(book);
     }
-
     @Test
     void deleteBook() {
         Integer bookOrderToDelete = 1;
@@ -61,9 +62,29 @@ class BookServiceTest {
         underTest.deleteBook(bookOrderToDelete);
         verify(bookRepository).deleteById(bookOrderToDelete);
     }
-
     @Test
-    @Disabled
     void updateBook() {
+        Book mockBook = new Book(
+                10.00,
+                "Titanic",
+                "James Cameron",
+                LocalDate.of(2000, Month.JANUARY,5)
+        );
+        String newTitle = "Art of War";
+        String newAuthor = "Sun Tzu";
+        Integer bookOrder = 1;
+
+        // Stub the findById method of the mock bookRepository
+        when(bookRepository.findById(bookOrder)).thenReturn(Optional.of(mockBook));
+
+        // Call the method to be tested
+        underTest.updateBook(bookOrder, newTitle, newAuthor);
+
+        // Verify that the bookRepository's findById method was called with the correct argument
+        verify(bookRepository).findById(bookOrder);
+
+        // Verify that the book's title and author were updated correctly
+        assertEquals(newTitle, mockBook.getTitle());
+        assertEquals(newAuthor, mockBook.getAuthor());
     }
 }
