@@ -4,13 +4,11 @@ import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-//marks class as a service component encapsulate buisness logic and perform task
-//
+//marks class as a service component encapsulate buisness logic and perform tasks
 //inside class is the service implementation
 @Service
 public class BookService {
@@ -20,16 +18,12 @@ public class BookService {
     public BookService(BookRepository bookRepository) {this.bookRepository = bookRepository;}
 
     //Calls hibernate to perform sql statement
-    public List<Book> getBooks(){return bookRepository.findAll();}
+    public List<Book> getAllBooks(){return bookRepository.findAll();}
 
     public void addNewBook(Book book){
         Optional<Book> bookTitle = bookRepository.findBookByTitle(book.getTitle());
-        if(bookTitle.isPresent()){
-            throw new IllegalStateException("Book already exists!");
-        }
+        if(bookTitle.isPresent()){throw new IllegalStateException("Book already exists!");}
         bookRepository.save(book);
-        System.out.println(book);
-
     }
 
     public void deleteBook(Integer bookOrder){

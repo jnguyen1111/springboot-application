@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
 
+//configures beans and command line runner allow you to run a component when an application starts up
 @Configuration
 public class BookConfig {
     @Bean
